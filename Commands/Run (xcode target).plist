@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>export PROJECT_DIR=$(ruby -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
+
+export PROJECT="${PROJECT_DIR}/project.pbxproj"
+if [[ ! -f ${PROJECT} ]]; then
+   echo "Didn't find an Xcode project file."
+   echo "You may want to set TM_XCODE_PROJECT."
+   exit -1
+fi
+
+cd "`dirname "${PROJECT_DIR}"`"
+
+"${TM_RUBY:=ruby}" &lt;&lt;'EOF'
+require "#{ENV['TM_SUPPORT_PATH']}/lib/plist"
+require "#{ENV['TM_BUNDLE_SUPPORT']}/bin/xcode_version"
+
+def shell_escape (str)
+   str.gsub(/[{}()`'"\\; $]/, '\\\\\&amp;')
+end
+
+prefs = PropertyList::load(File.new("#{ENV['HOME']}/Library/Preferences/com.apple.Xcode.plist"))
+dir   = prefs['PBXProductDirectory']
+
+if dir.nil?
+   dir = "#{ENV['PWD']}/build"
+end
+
+name         = ENV['PROJECT']
+proj         = PropertyList::load(File.new(name))
+objs         = proj['objects']
+rootObj      = objs[proj['rootObject']]
+
+userFile     = "#{ENV['PROJECT_DIR']}/#{ENV['USER']}.pbxuser"
+user         = PropertyList::load(File.new(userFile))
+activeConfig = user[proj['rootObject']]['activeBuildConfigurationName']
+
+if Xcode.supports_configurations? then
+   activeConfig = user[proj['rootObject']]['activeBuildConfigurationName']
+   activeConfig = "Development" if activeConfig.nil?
+
+   dir += "/#{activeConfig}"
+end
+
+targets = rootObj['targets'].reject { |t| not ['com.apple.product-type.tool', 'com.apple.product-type.application'].include?(objs[t]['productType']) }
+if targets.size == 1
+   target = objs[targets[0]]
+   productKey = target['productReference']
+   run = target['productType'] == 'com.apple.product-type.application' ? 'open' : ''
+   product = objs[productKey]
+   file = product['path']
+   escaped_dir = shell_escape(dir)
+   escaped_file = shell_escape(file)
+   cmd = "cd #{escaped_dir}; env DYLD_FRAMEWORK_PATH=#{escaped_dir} DYLD_LIBRARY_PATH=#{escaped_dir} #{run} ./#{escaped_file}; exit;"
+   cmd = cmd.gsub(/\\/, '\\\\\\\\')
+   osascript_1 = "tell app \"Terminal\" to do script \"#{cmd}\""
+   osascript_2 = "tell app \"Terminal\" to close first window"
+   %x{osascript 1&gt;&amp;2 -e #{shell_escape osascript_1} -e "delay 1" -e #{shell_escape osascript_2}}
+else
+   puts "The project had multiple targets.\nDidn't know which to pick."
+end
+
+EOF</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@r</string>
+	<key>name</key>
+	<string>Run</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>scope</key>
+	<string>source.c, source.objc, source.c++, source.objc++</string>
+	<key>uuid</key>
+	<string>779DEA3C-D310-4B66-9531-DF9007434878</string>
+</dict>
+</plist>
