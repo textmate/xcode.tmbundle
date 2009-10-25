@@ -22,7 +22,7 @@ fi
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>
-	<string>source.c, source.c++, source.objc, source.objc++</string>
+	<string>attr.project.xcode &amp; (source.c | source.c++ | source.objc | source.objc++)</string>
 	<key>uuid</key>
 	<string>C9FAE873-96D3-4CE7-8DDA-4C2B30F1813E</string>
 </dict>
