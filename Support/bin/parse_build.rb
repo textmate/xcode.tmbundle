@@ -141,6 +141,11 @@ STDIN.each_line do |line|
 		when /^\s*((In file included from)|from)(\s*)(\/.*?):/
 			formatter.message_prefix( line )
 
+		# ignore {standard input} lines (tons for errors in Xcode 3.2)
+		when /^\{standard input\}/
+
+			# do nothing
+
 		# <path>:<line>:[column:] error description
 		when /^(.+?):(\d+):(?:\d*?:)?\s*(.*)/
 			path		= $1
