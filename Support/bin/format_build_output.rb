@@ -71,7 +71,8 @@ class Formatter
 			title += %Q{<span class="name">#{html_escape(style)}</span><br />}
 		end
 		
-		emit_start_section(title, :css_suffix => 'target', :visibility => :show)
+		visibility = title.include?("BUILD LEGACY TARGET") ? :hide : :show
+		emit_start_section(title, :css_suffix => 'target', :visibility => visibility)
 	end
 	
 	def file_compiled( verb, file )
