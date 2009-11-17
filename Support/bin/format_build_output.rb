@@ -46,7 +46,8 @@ class Formatter
 	# Entrypoints for build parser
 	#
 	def start
-		emit_raw(html_head(:title => 'Build With Xcode', :sub_title => "Xcode"))
+		windowTitle = ENV['TM_XCODE_WINDOW_TITLE'] || 'Build With Xcode'
+		emit_raw(html_head(:title => windowTitle, :sub_title => "Xcode"))
 	end
 	
 	def start_new_section(title = nil)
