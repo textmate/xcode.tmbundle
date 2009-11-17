@@ -249,7 +249,7 @@ class Xcode
       end
       
       def run(&block)
-        dir_path  = @project.results_path
+        dir_path  = @project.results_path.sub(/^\$HOME/,ENV['HOME'])
         file_path = product_path
         escaped_dir = e_sh(File.expand_path(dir_path))
         escaped_file = e_sh(file_path)
