@@ -12,8 +12,8 @@
 $bundle				= ENV['TM_BUNDLE_SUPPORT']
 $support			= ENV['TM_SUPPORT_PATH']
 
-require ($support + "/lib/web_preview")
-require ($bundle + "/bin/xcode_version")
+require "#{$support}/lib/web_preview"
+require "#{$bundle}/bin/xcode_version"
 require 'cgi'
 
 #
