@@ -132,13 +132,19 @@ class Xcode
       
       # create a filesystem path
       fs_path = source_root
-      
+      subpath = ''
+			
       value.each do |group|
         type, segment = source_tree_for_group(group)
         unless type == :group
           fs_path = segment
+				else
+					if segment then
+						subpath = subpath + "/" + segment
+					end
         end
       end
+			fs_path=fs_path+subpath
       fs_path
     end
     
