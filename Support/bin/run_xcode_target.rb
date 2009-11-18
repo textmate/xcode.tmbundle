@@ -336,7 +336,7 @@ class Xcode
           found_target.run(&block)
         end
       else
-        info "Will try to run target #{ENV['XC_TARGET_NAME']}"
+        #info "Will try to run target #{ENV['XC_TARGET_NAME']}"
         found_target = targets.find { |t| t.name == ENV['XC_TARGET_NAME'] }
         if found_target
           found_target.run(&block)
