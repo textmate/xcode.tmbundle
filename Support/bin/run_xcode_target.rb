@@ -372,7 +372,7 @@ class Xcode
           begin
             type = :HTML
             line = htmlize(line.chomp)
-            line = line.gsub(/^(([\w.\/ ])+):(\d+):((\d+):)?(?!\d+\.\d+)/) do |string|
+            line = line.gsub(/^(([\w.\/ \+])+):(\d+):((\d+):)?(?!\d+\.\d+)/) do |string|
               # the negative lookahead suffix prevents matching the NSLog time prefix
             
               path        = @project.path_for_basename($1)
