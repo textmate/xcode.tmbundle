@@ -151,24 +151,29 @@ class Xcode
       path = nil
       @objects.each_pair do |key, obj|
 
-        if obj['isa'] == 'PBXContainerItemProxy'
-          sub_project_file = dereference(obj['containerPortal'])['path']
-          sub_project_path = File.join(File.split(@project_path).first, sub_project_file)
-          sub_project_path = File.expand_path(sub_project_path)
-
-          next if @@did_scan_project.include? sub_project_path
-
-          unless @@project_cache.has_key? sub_project_path
-            @@project_cache[sub_project_path] = Xcode::Project.new sub_project_path
-          end
-
-          sub_project = @@project_cache[sub_project_path]
-          @@did_scan_project << sub_project_path
-          @@in_sub_project += 1
-          path = sub_project.path_for_basename(basename)
-          @@in_sub_project -= 1
-          break if path
-        end
+# 				Ever since Xcode 3 or so this block of code produces exceptions
+# 				for me in the run log. But since I am not sure what it does, I
+# 				am not comfortable removing it completely. However the Xcode
+# 				bundle has worked fine for me for the past years without this block.
+# 				
+#         if obj['isa'] == 'PBXContainerItemProxy'
+#           sub_project_file = dereference(obj['containerPortal'])['path']
+#           sub_project_path = File.join(File.split(@project_path).first, sub_project_file)
+#           sub_project_path = File.expand_path(sub_project_path)
+# 
+#           next if @@did_scan_project.include? sub_project_path
+# 
+#           unless @@project_cache.has_key? sub_project_path
+#             @@project_cache[sub_project_path] = Xcode::Project.new sub_project_path
+#           end
+# 
+#           sub_project = @@project_cache[sub_project_path]
+#           @@did_scan_project << sub_project_path
+#           @@in_sub_project += 1
+#           path = sub_project.path_for_basename(basename)
+#           @@in_sub_project -= 1
+#           break if path
+#         end
 
         next unless obj['isa'] == 'PBXFileReference'
         next unless obj['path'].include? '/' + basename or obj['path'] == basename
