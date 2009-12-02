@@ -4,12 +4,12 @@ div.console{
 	font-size: 9px;
 }
 
-div.section_error, div.section_warning, div.section_info{
+div.section_error, div.section_warning, div.section_userwarning, div.section_info{
 	-webkit-border-radius: 6px;
 	-webkit-box-shadow: 3px 3px 3px #555;
 }
 
-div.section_error .inner, div.section_warning .inner, div.section_info .inner{
+div.section_error .inner, div.section_warning .inner, div.section_userwarning .inner, div.section_info .inner{
 	-webkit-border-bottom-left-radius: 6px;
 	-webkit-border-bottom-right-radius: 6px;
 	color: black;
@@ -17,7 +17,7 @@ div.section_error .inner, div.section_warning .inner, div.section_info .inner{
 	padding: 2px 6px;
 }
 
-div.section_error .inner p, div.section_warning .inner p, div.section_info .inner p{
+div.section_error .inner p, div.section_warning .inner p, div.section_userwarning .inner p, div.section_info .inner p{
 	padding: 1px 1px;
 	margin: 1px 1px;
 }
@@ -46,6 +46,16 @@ div.section_warning{
 div.section_warning .inner{
 	border-color: #887721;
 	background-color: #EEEACA;
+}
+
+div.section_userwarning{
+	background-color: #93C4CB;
+	color: #ADFBFF;
+}
+
+div.section_userwarning .inner{
+	border-color: #217788;
+	background-color: #CAEAEE;
 }
 
 div.section_info{

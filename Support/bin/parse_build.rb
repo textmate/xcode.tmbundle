@@ -164,7 +164,11 @@ STDIN.each_line do |line|
 				else
 					cssclass = cssclass[1]
 				end
-
+				
+				if /\s#warning/i.match(error_desc)
+					cssclass = "userwarning" 
+				end
+				
 				formatter.error_message( cssclass, path, line_number, error_desc )
 			else
 				formatter.build_noise( line )
