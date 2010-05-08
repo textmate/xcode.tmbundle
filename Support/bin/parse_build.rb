@@ -214,7 +214,7 @@ unless ENV['PROJECT_FILE'].empty? or error_log_entries.length == 0
 end
 
 # report success/failure
-success = /\*\* ((BUILD|CLEAN) SUCCEEDED) \*\*/.match(last_line)
+success = /\*\* ((BUILD|CLEAN) SUCCEEDED) /.match(last_line)
 
 formatter.message_prefix(last_line)
 
