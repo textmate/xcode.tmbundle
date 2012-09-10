@@ -5,17 +5,30 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>export TM_TARGET="${TM_TEST_TARGET:-Test}"
+	<string>#!/usr/bin/env bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+export TM_TARGET="${TM_TEST_TARGET:-Test}"
 "${TM_BUNDLE_SUPPORT}/bin/run_xcodebuild.sh"</string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>~@T</string>
 	<key>name</key>
 	<string>Run Tests</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>semanticClass</key>
+	<string>process.test.xcode</string>
 	<key>uuid</key>
 	<string>40D3C674-40A1-42A1-847A-FBEAE6E83CCC</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
