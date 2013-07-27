@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
 # Copyright 2005 Chris Thomas. All rights reserved.
 # MIT license; share and enjoy.
 
