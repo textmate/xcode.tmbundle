@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>PROJECT_FILE=$(/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
+	<string>PROJECT_FILE=$(ruby18 -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
 #PROJECT_FILE=${PROJECT_FILE##*/}
 
 "${TM_BUNDLE_SUPPORT}/bin/xcode_project.rb" project=${PROJECT_FILE} list</string>

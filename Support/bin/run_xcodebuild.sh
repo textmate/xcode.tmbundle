@@ -19,10 +19,10 @@
 if [[ -n $XCODE_PROJECT_FILE ]]; then
 	PROJECT_FILE=$XCODE_PROJECT_FILE
 else
-	PROJECT_FILE=$(/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
+	PROJECT_FILE=$(ruby18 -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
 fi
 
-USE_CONFIGURATIONS=$(/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "${TM_BUNDLE_SUPPORT}/bin/xcode_version.rb")
+USE_CONFIGURATIONS=$(ruby18 -- "${TM_BUNDLE_SUPPORT}/bin/xcode_version.rb")
 
 #
 # Get into the correct directory and make the project file relative to it
@@ -68,4 +68,4 @@ OBJROOT=$("${TM_BUNDLE_SUPPORT}"/bin/find_objroot.rb)
 echo $OBJROOT
 
 export PROJECT_FILE
-xcodebuild ${PROJECT_FILE:+-project "$PROJECT_FILE"} ${TM_TARGET:+-target $TM_TARGET} $BUILD_STYLE $XCODE_BUILD_VERB ${OBJROOT:+"OBJROOT=$OBJROOT"} 2>&1| /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "${TM_BUNDLE_SUPPORT}/bin/format_build_output.rb"
+xcodebuild ${PROJECT_FILE:+-project "$PROJECT_FILE"} ${TM_TARGET:+-target $TM_TARGET} $BUILD_STYLE $XCODE_BUILD_VERB ${OBJROOT:+"OBJROOT=$OBJROOT"} 2>&1| ruby18 -- "${TM_BUNDLE_SUPPORT}/bin/format_build_output.rb"

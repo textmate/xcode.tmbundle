@@ -1,4 +1,4 @@
-#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
+#!/usr/bin/env ruby18
 # Copyright 2005 Chris Thomas. All rights reserved.
 # MIT license; share and enjoy.
 require 'pathname'

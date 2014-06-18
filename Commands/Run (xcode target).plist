@@ -8,7 +8,7 @@
 	<string>#!/usr/bin/env bash
 [[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
 
-PROJECT=$(/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
+PROJECT=$(ruby18 -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
 if [[ -f "${PROJECT}/project.pbxproj" ]]; then
    "${TM_BUNDLE_SUPPORT}/bin/run_xcode_target.rb" -project_dir="$PROJECT"
 else

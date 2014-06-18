@@ -17,7 +17,7 @@
 #
 # if the build succeeds, it will run the target
 
-XCODE_PROJECT_FILE=$(/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
+XCODE_PROJECT_FILE=$(ruby18 -- "${TM_BUNDLE_SUPPORT}/bin/find_xcode_project.rb")
 export XCODE_PROJECT_FILE
 
 export XCODE_RUN_BUILD=1
